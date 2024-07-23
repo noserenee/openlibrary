@@ -50,7 +50,7 @@ $code:
       <a href="/people/$(doc['log']['username'])/books/$(doc['log']['shelf'].replace(' ', '-'))" class="feed-item--shelf">$doc['log']['shelf']</a> $datestr(doc['log']['updated'])
     </div>
   <div class="sri__main">
-    <span class="bookcover $blur_cover">
+    <span class="bookcover bookcover--search-inside $blur_cover ">
       $ cover = get_cover_url(selected_ed) or "/images/icons/avatar_book-sm.png"
       <a href="$work_edition_url"><img
               itemprop="image"
