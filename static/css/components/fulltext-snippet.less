@@ -1,9 +1,13 @@
+section div {
+  display: inline;
+}
 .fsi-snippet {
   display: inline;
   width: 60%;
   padding: 5px;
   margin: 0;
   font-size: small;
+  background-color: orange;
   @media (min-width: @width-breakpoint-mobile-m) {
     width: 90%;
   }
@@ -16,6 +20,8 @@
     padding: 5px;
     margin: 0 5px;
     line-height: 1.6em;
+    background-color: orange;
+    border-bottom: 1px solid hsl(0, 0%, 93%);
     a:link,
     a:hover,
     a:visited {
@@ -32,7 +38,7 @@
 
   &__quotation-mark {
     font-size: larger;
-    display: inline;
+    display: inline !important;
   }
 
   &__page-num {
