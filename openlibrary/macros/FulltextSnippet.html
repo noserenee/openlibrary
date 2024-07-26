@@ -9,21 +9,23 @@ $if len(page_nums) == 1 and isinstance(page_nums[0], list):
     $ page_nums = page_nums[0]
 $ page = ', '.join(str(num) for num in page_nums)
 
+<ul class="fsi-snippet">
+  $for snippet in snippets:
+    $if snippet:
+      <li class="fsi-snippet__main">
+        <div class="fsi-snippet__quotation-mark">$_('❝')</div>
+        <a class="fsi-snippet__link" href="$ia_base_url/details/$ia" data-ol-link-track="SearchInsideCard|QuoteClick">
+          &hellip;$:(snippet.replace("<", "&laquo;").replace(">", "&raquo;").replace("{{{", "<mark class='highlight'><strong>").replace("}}}", "</strong></mark>"))&hellip;
+        </a>&nbsp;
+        <div class="fsi-snippet__quotation-mark">$_('❞')</div>
+        $if page:
+          <div class="fsi-snippet__page-num" href="$ia_base_url/details/$ia">
+            <a data-ol-link-track="SearchInsideCard|QuoteClick">$_('Page: %(page)s', page=page)</a>
+          </div>
+      </li>
+</ul>
 
-$if snippets:
-  <section class="fulltext-excerpts" aria-label="search results from: $doc['edition']['title']">
-    <ul>
-      $for snippet in snippets:
-        $if snippet:
-          <li class="fsi__main">
-            <div class="fsi-snippet__quotation-mark">$_('❝')</div>
-            <a class="fsi-snippet__link" href="$ia_base_url/details/$ia" data-ol-link-track="SearchInsideCard|QuoteClick">
-              &hellip;$:(snippet.replace("<", "&laquo;").replace(">", "&raquo;").replace("{{{", "<mark class='highlight'><strong>").replace("}}}", "</strong></mark>"))&hellip;
-            </a>&nbsp;
-            <div class="fsi-snippet__quotation-mark">$_('❞')</div>
-          </li>
-    </ul>
-  </section>
+
 
 $if availability.get('status') == 'open':
   <p class="center"><a href="https://archive.org/stream/$(ia)?ref=ol&access=1#search/$(q)">$_("See All Results")</a></p>

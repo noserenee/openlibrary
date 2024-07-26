@@ -1,6 +1,5 @@
-section div.fsi-snippet__main {
-  display: inline !important;
-}
+
+
 .fsi-snippet {
   font-family: @georgia_serif-1;
   display: inline !important;
@@ -8,7 +7,6 @@ section div.fsi-snippet__main {
   padding: 5px;
   margin: 0;
   font-size: small;
-  background-color: orange !important;
   @media (min-width: @width-breakpoint-mobile) {
     width: 90%;
   }
@@ -21,8 +19,12 @@ section div.fsi-snippet__main {
     padding: 5px;
     margin: 0 5px;
     line-height: 1.6em;
-    background-color: orange;
-    border-bottom: 1px solid hsl(0, 0%, 93%);
+    border-bottom: 1px solid @lightest-grey;
+    font-size: 1em;
+    overflow: hidden;
+    &:last-child {
+      border-bottom: none;
+    }
     a:link,
     a:hover,
     a:visited {
@@ -39,7 +41,7 @@ section div.fsi-snippet__main {
 
   &__quotation-mark {
     font-size: larger;
-    display: inline !important;
+    display: inline;
   }
 
   &__page-num {
@@ -48,4 +50,10 @@ section div.fsi-snippet__main {
     text-decoration: none !important;
     font-family: @lucida_sans_serif-1 !important;
   }
+}
+
+//overrides
+
+.searchResultItem h3 {
+  font-size: larger;
 }
