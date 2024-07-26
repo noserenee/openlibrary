@@ -39,7 +39,7 @@ $code:
   else:
     full_work_title = doc.get('title', '') + (': ' + doc.subtitle if doc.get('subtitle') else '')
 
-<li class="searchResultItem" itemscope itemtype="https://schema.org/Book" $:attrs>
+<div class="fsi" itemscope itemtype="https://schema.org/Book" $:attrs>
   $ blur_cover = "bookcover--blur" if blur else ""
   $if 'log' in doc:
     <div class="feed-item">
@@ -49,8 +49,8 @@ $code:
       </a> $_("added to")
       <a href="/people/$(doc['log']['username'])/books/$(doc['log']['shelf'].replace(' ', '-'))" class="feed-item--shelf">$doc['log']['shelf']</a> $datestr(doc['log']['updated'])
     </div>
-  <div class="sri__main">
-    <span class="bookcover $blur_cover">
+  <div class="fsi__main">
+    <span class="fsi__bookcover $blur_cover">
       $ cover = get_cover_url(selected_ed) or "/images/icons/avatar_book-sm.png"
       <a href="$work_edition_url"><img
               itemprop="image"
@@ -60,13 +60,12 @@ $code:
       /></a>
     </span>
 
-    <div class="details">
-        <div class="resultTitle--search-inside">
-          <h3 itemprop="name" class="booktitle">
-            <a itemprop="url" href="$work_edition_url" class="results">$full_title</a>
-          </h3>
-        </div>
-        <span itemprop="author" itemscope itemtype="https://schema.org/Organization" class="bookauthor">
+    <div class="fsi__book-details">
+      <div class="fsi__title-author">
+        <h3 class="fsi__book-title" itemprop="name">
+          <a class="fsi__book-title-link" itemprop="url" data-ol-link-track="SearchInsideCard|BookClick" href="$work_edition_url">$full_title</a>
+        </h3>
+        <p class="fsi__book-author" itemprop="author" itemscope itemtype="https://schema.org/Organization">
           $ authors = None
           $if doc_type == 'infogami_work':
             $ authors = doc.get_authors()
@@ -89,40 +88,14 @@ $code:
                 for a in authors
               ]
             $:macros.BookByline(author_data, limit=max_rendered_authors, overflow_url=work_edition_url, attrs='class="results"')
-        </span>
-        <span class="resultPublisher">
-          $if doc.get('first_publish_year'):
-            <span class="publishedYear">
-              $_('First published in %(year)s', year=doc.first_publish_year)
-            </span>
-          $if doc.get('edition_count'):
-            <a href="$work_edition_all_url#editions-list">$ungettext('%(count)s edition', '%(count)s editions', doc.edition_count, count=doc.edition_count)</a>
-            $if doc.get('languages'):
-              <span class="languages">
-                $:ungettext('in <a class="hoverlink" title="%(langs)s">%(count)d language</a>', 'in <a class="hoverlink" title="%(langs)s">%(count)d languages</a>', len(doc.languages), count=len(doc.languages), langs=commify_list([get_language_name('/languages/' + lang) for lang in doc.languages]))
-              </span>
-            $if doc.get('ia'):
-              &mdash; $_('%s previewable', len(doc.get('ia')))
-              $if len(doc.get('ia')) > 1:
-                $ blur_preview = "preview-covers--blur" if blur else ""
-                <span class="preview-covers $blur_preview">
-                  $for x, i in enumerate(doc.get('ia')[1:10]):
-                    <a href="$(book_url)?edition=ia:$(urlquote(i))">
-                      <img width="30" height="45" loading="lazy" src="//archive.org/services/img/$i" alt="$_('Cover of edition %(id)s', id=i)">
-                    </a>
-                </span>
-        </span>
-        $if show_librarian_extras:
-          <div class="searchResultItem__librarian-extras" title="$_('This is only visible to librarians.')">
-            $if doc_type == 'solr_edition' or (doc_type == 'infogami_edition' and edition_work):
-              <div>$_("Work Title"): <i>$full_work_title</i></div>
-            $ is_orphan = doc_type.startswith('solr_') and doc['key'].endswith('M') or doc_type == 'infogami_edition' and not edition_work
-            $if is_orphan:
-              <div>$_("Orphaned Edition")</div>
-          </div>
-        $if extra:
-          $:extra
+        </p>
     </div>
+    $if extra:
+      $:extra
+    </div>
+
+  </div>
+  <div class="fsi__footer">
 
     <div class="searchResultItemCTA">
         $if decorations:
@@ -151,9 +124,9 @@ $code:
         $if rating:
           $:rating
     </div>
-  </div>
 
-  $if footer:
-    <hr />
-    $:footer
-</li>
+    $if footer:
+      <hr />
+      $:footer
+  </div>
+</div>
