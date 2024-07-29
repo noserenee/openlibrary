@@ -50,49 +50,50 @@ $code:
       <a href="/people/$(doc['log']['username'])/books/$(doc['log']['shelf'].replace(' ', '-'))" class="feed-item--shelf">$doc['log']['shelf']</a> $datestr(doc['log']['updated'])
     </div>
   <div class="fsi__main">
-    <span class="fsi__bookcover $blur_cover">
-      $ cover = get_cover_url(selected_ed) or "/images/icons/avatar_book-sm.png"
-      <a href="$work_edition_url"><img
-              itemprop="image"
-              src="$cover"
-              alt="$_('Cover of: %(title)s', title=full_title)"
-              title="$_('Cover of: %(title)s', title=full_title)"
-      /></a>
-    </span>
+    <div class="sri__bookcover-details">
+      <span class="fsi__bookcover $blur_cover">
+        $ cover = get_cover_url(selected_ed) or "/images/icons/avatar_book-sm.png"
+        <a href="$work_edition_url"><img
+                itemprop="image"
+                src="$cover"
+                alt="$_('Cover of: %(title)s', title=full_title)"
+                title="$_('Cover of: %(title)s', title=full_title)"
+        /></a>
+      </span>
 
-    <div class="fsi__book-details">
-      <div class="fsi__title-author">
-        <h3 class="fsi__book-title" itemprop="name">
-          <a class="fsi__book-title-link" itemprop="url" data-ol-link-track="SearchInsideCard|BookClick" href="$work_edition_url">$full_title</a>
-        </h3>
-        <p class="fsi__book-author" itemprop="author" itemscope itemtype="https://schema.org/Organization">
-          $ authors = None
-          $if doc_type == 'infogami_work':
-            $ authors = doc.get_authors()
-          $elif doc_type == 'infogami_edition':
-            $ authors = edition_work.get_authors() if edition_work else doc.get_authors()
-          $elif doc_type.startswith('solr_'):
-            $if 'authors' in doc:
-              $ authors = doc['authors']
-            $elif 'author_key' in doc:
-              $ authors = [ { 'key': '/authors/' + key, 'name': name } for key, name in zip(doc['author_key'], doc['author_name']) ]
-          $if not authors:
-            <em>$_('Unknown author')</em>
-          $else:
-            $code:
-              author_data = [
-                {
-                  'name': a.get('name') or a.get('author', {}).get('name'),
-                  'url': (a.get('url') or a.get('key') or a.get('author', {}).get('url') or a.get('author', {}).get('key'))
-                }
-                for a in authors
-              ]
-            $:macros.BookByline(author_data, limit=max_rendered_authors, overflow_url=work_edition_url, attrs='class="results"')
-        </p>
-    </div>
-    $if extra:
-      $:extra
-    </div>
+      <div class="fsi__book-details">
+        <div class="fsi__title-author">
+          <h3 class="fsi__book-title" itemprop="name">
+            <a class="fsi__book-title-link" itemprop="url" data-ol-link-track="SearchInsideCard|BookClick" href="$work_edition_url">$full_title</a>
+          </h3>
+          <p class="fsi__book-author" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+            $ authors = None
+            $if doc_type == 'infogami_work':
+              $ authors = doc.get_authors()
+            $elif doc_type == 'infogami_edition':
+              $ authors = edition_work.get_authors() if edition_work else doc.get_authors()
+            $elif doc_type.startswith('solr_'):
+              $if 'authors' in doc:
+                $ authors = doc['authors']
+              $elif 'author_key' in doc:
+                $ authors = [ { 'key': '/authors/' + key, 'name': name } for key, name in zip(doc['author_key'], doc['author_name']) ]
+            $if not authors:
+              <em>$_('Unknown author')</em>
+            $else:
+              $code:
+                author_data = [
+                  {
+                    'name': a.get('name') or a.get('author', {}).get('name'),
+                    'url': (a.get('url') or a.get('key') or a.get('author', {}).get('url') or a.get('author', {}).get('key'))
+                  }
+                  for a in authors
+                ]
+              $:macros.BookByline(author_data, limit=max_rendered_authors, overflow_url=work_edition_url, attrs='class="results"')
+          </p>
+      </div>
+      $if extra:
+        $:extra
+      </div>
 
   </div>
   <div class="fsi__footer">

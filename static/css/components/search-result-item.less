@@ -32,6 +32,12 @@
     display: block;
   }
 
+    .sri__bookcover-details {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+
   a[href] {
     text-decoration: none;
   }
@@ -47,15 +53,29 @@
   .details {
     overflow: auto;
     display: inline;
-    width: 100%;
+    width: 50%;
     padding: 5px;
     margin: 0;
+    @media (min-width: 375px) {
+      width: 70%
+    }
+    @media (min-width: 425px) {
+      width: 80%
+    }
   }
   .resultTitle {
     overflow: auto;
     margin: 0 !important;
     font-family: @lucida_sans_serif-1;
     color: @grey;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    // @media (min-width: 375px) {
+    //   width: 70%
+    // }
+    // @media (min-width: 425px) {
+    //   width: 80%
+    // }
   }
   span.resultPublisher {
     font-size: .75em;
@@ -96,8 +116,27 @@
     }
   }
   .bookcover--search-inside {
-    height: 180px;
-    width: 115px;
+    // height: 180px;
+    // width: 115px;
+    // margin: auto;
+    overflow: hidden;
+    height: 100%;
+    width: auto;
+    min-width: 90px;
+    border-radius: 4px;
+    align-self: center;
+    margin-top: 5px;
+    @media (min-width: @width-breakpoint-tablet) {
+      height: 180px;
+      margin-bottom: 5px;
+      width: 120px;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
   }
   .bookcover--blur {
     img {
@@ -166,6 +205,9 @@
       .bookcover {
         width: 175px;
         text-align: right;
+      }
+      .bookcover--search-inside {
+        width: 120px;
       }
       .imageLg {
         width: 175px;
