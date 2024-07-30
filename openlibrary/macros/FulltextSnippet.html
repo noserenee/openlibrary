@@ -3,7 +3,7 @@ $def with (q, doc=None)
 $ ia = doc.get('fields', {}).get('identifier', [''])[0]
 $ ia_base_url = "https://archive.org"
 $ availability = doc.get('availability', {})
-$ snippets = doc.get('highlight', {}).get('text', [''])[:1]
+$ snippets = doc.get('highlight', {}).get('text', [''])[:2]
 $ page_nums = doc.get('fields', {}).get('page_num', [])
 $if len(page_nums) == 1 and isinstance(page_nums[0], list):
     $ page_nums = page_nums[0]
