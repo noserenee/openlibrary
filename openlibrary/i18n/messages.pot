@@ -7603,17 +7603,17 @@ msgstr ""
 msgid "Clear my rating"
 msgstr ""
 
-#: StarRatingsByline.html StarRatingsComponent.html
-msgid "rating"
-msgstr ""
-
-#: StarRatingsByline.html StarRatingsComponent.html
-msgid "ratings"
-msgstr ""
-
 #: StarRatingsByline.html
 #, python-format
 msgid "%(want_to_read_count)s Want to read"
+msgstr ""
+
+#: StarRatingsComponent.html
+msgid "rating"
+msgstr ""
+
+#: StarRatingsComponent.html
+msgid "ratings"
 msgstr ""
 
 #: StarRatingsComponent.html
